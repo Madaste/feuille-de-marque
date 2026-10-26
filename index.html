@@ -78,7 +78,10 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
  header{background:#fff;color:#111;padding:0 0 3px;border-bottom:1px solid #16324f}
  header h1{font-size:14pt;line-height:1.1}
  header p{color:#333;font-size:7pt;margin:2px 0 0}
-  main{display:grid;grid-template-columns:56% 44%;grid-template-rows:auto minmax(0,1fr) 42mm;gap:3px;max-width:none;height:auto;min-height:180mm;padding:3px 0 0;margin:0;}
+ main {display: grid;grid-template-columns: 56% 44%;grid-template-rows: auto minmax(0, 1fr) 42mm;gap: 3px;width: 100%;max-width: none;height: auto;min-height: 180mm;box-sizing: border-box;padding: 3px 0 0;margin: 0;}
+ main > section:nth-of-type(2) {min-width: 0;width: 100%;box-sizing: border-box;}
+#table1,
+#table2 {width: 100%;max-width: 100%;table-layout: fixed;box-sizing: border-box;} 
   /* Informations de séance : pleine largeur en haut */
   main>section:nth-of-type(1){grid-column:1/-1;grid-row:1;}
   /* Tableau des scores : colonne de gauche */

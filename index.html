@@ -71,88 +71,380 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
 #printHeader{display:none}
 @media(max-width:760px){.meta{grid-template-columns:repeat(2,minmax(0,1fr))}.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-two{grid-template-columns:1fr}.card{padding:12px}th,td{padding:5px}.score-select{min-width:43px;padding:4px}}
 @media(max-width:420px){main{padding:10px 8px 24px}.meta{gap:8px}.metric .v{font-size:1.25rem}.score-select{min-width:40px;font-size:.95rem}}
-@page{size:A4 landscape;margin:5mm}
-@media print{
- *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
- body{background:#fff;font-size:7pt;line-height:1.12}
- header{background:#fff;color:#111;padding:0 0 3px;border-bottom:1px solid #16324f}
- header h1{font-size:14pt;line-height:1.1}
- header p{color:#333;font-size:7pt;margin:2px 0 0}
- main {display: grid;grid-template-columns: 56% 44%;grid-template-rows: auto minmax(0, 1fr) 42mm;gap: 3px;width: 100%;max-width: none;height: auto;min-height: 180mm;box-sizing: border-box;padding: 3px 0 0;margin: 0;}
- main > section:nth-of-type(2) {min-width: 0;width: 100%;box-sizing: border-box;}
-#table1,
-#table2 {width: 100%;max-width: 100%;table-layout: fixed;box-sizing: border-box;} 
-  /* Informations de séance : pleine largeur en haut */
-  main>section:nth-of-type(1){grid-column:1/-1;grid-row:1;}
-  /* Tableau des scores : colonne de gauche */
-  main>section:nth-of-type(2){grid-column:1;grid-row:2;min-height:0;}
-  /* Résultats et répartition : colonne de droite */
-  main>section:nth-of-type(3){grid-column:2;grid-row:2;min-height:0;overflow:visible;}
-  /* Graphique : sous les scores et les résultats, pleine largeur */
-  main>section:nth-of-type(4){grid-column:1/-1;grid-row:3;min-height:0;}
-  /* Boutons : masqués dans le PDF */
-  main>section:nth-of-type(5){display:none!important;}
- main>section:nth-of-type(5){display:none!important}
- .card{box-shadow:none;border:1px solid #aaa;border-radius:0;padding:4px;margin:0;break-inside:avoid;min-width:0;overflow:visible}
- h2{font-size:8pt;margin:0 0 3px}
- .meta{grid-template-columns:repeat(6,minmax(0,1fr));gap:2px 5px}
- .field label{font-size:6pt;margin:0}
- .field input,.field select,.field textarea{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:1px 2px;min-height:0;height:12px;font-size:6.5pt}
- .field.wide{grid-column:span 2}
- .score-head{gap:4px}
- .progress{font-size:7pt}
- .help,.status,footer,.actions,.no-print{display:none!important}
- .series{margin-top:3px}
- .series h2{font-size:7.5pt;margin:2px 0}
- .table-wrap{overflow:visible}
- table{width:100%;table-layout:fixed}
- th,td{padding:1px 2px;font-size:6.2pt;line-height:1.05;overflow:hidden}
- #table1 th:first-child,#table1 td:first-child,#table2 th:first-child,#table2 td:first-child{width:11mm}
- #table1 th:nth-child(2),#table1 td:nth-child(2),#table1 th:nth-child(3),#table1 td:nth-child(3),#table1 th:nth-child(4),#table1 td:nth-child(4),#table2 th:nth-child(2),#table2 td:nth-child(2),#table2 th:nth-child(3),#table2 td:nth-child(3),#table2 th:nth-child(4),#table2 td:nth-child(4){width:10mm}
- #table1 th:nth-child(5),#table1 td:nth-child(5),#table2 th:nth-child(5),#table2 td:nth-child(5){width:13mm}
- #table1 th:nth-child(6),#table1 td:nth-child(6),#table2 th:nth-child(6),#table2 td:nth-child(6){width:14mm}
- #table1 th:nth-child(7),#table1 td:nth-child(7),
-#table2 th:nth-child(7),#table2 td:nth-child(7){width:16mm}
-#table1 th:nth-child(8),#table1 td:nth-child(8),
-#table2 th:nth-child(8),#table2 td:nth-child(8){width:19mm}
- .score-select{
-   border:1px solid #555!important;min-height:0;height:4mm;padding:0;font-size:6.5pt;
-   appearance:none;-webkit-appearance:none;width:100%;min-width:0;
-   font-weight:800!important;text-align:center;
-   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
-   background-color:#fff!important;color:#111!important;
- }
- /* Couleurs franches à l'impression : conserver les teintes réelles des zones. */
- .score-select.ring-white{background-color:#ffffff!important;color:#111111!important;border-color:#777777!important}
-.score-select.ring-black{background-color:#000000!important;color:#ffffff!important;border-color:#000000!important}
-.score-select.ring-blue{background-color:#0057b8!important;color:#ffffff!important;border-color:#003d80!important}
-.score-select.ring-red{background-color:#c00000!important;color:#ffffff!important;border-color:#800000!important}
-.score-select.ring-yellow{background-color:#ffdf00!important;color:#111111!important;border-color:#b89d00!important}
-.score-select.ring-miss{background-color:#d9d9d9!important;color:#111111!important;border:1.5px solid #555555!important}
- .score-select option{display:none}
- .row-total{background:#f7f9fb}
- .summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
- .metric{padding:3px;border-radius:3px}
- .metric .k,.metric .sub{font-size:5.8pt;line-height:1.05}
- .metric .v{font-size:9pt;margin-top:1px}
- .metric.small .v{font-size:8pt}
- .stats-two{grid-template-columns:.75fr 1.25fr;gap:4px;margin-top:4px!important}
- .stats-two{grid-template-columns:1fr;gap:5px;margin-top:4px!important;}
- .zone-pill{padding:1px 3px;border-radius:4px}
- .distribution-note{font-size:5pt;margin:1px 0 0}
- .bars{gap:1px}
-.barrow,.dist-head{display:grid;grid-template-columns:10px minmax(0,1fr) 14px 32px 36px;gap:2px;align-items:center;font-size:5.2pt;line-height:1;}
-.barrow > *, .dist-head > *{white-space:nowrap;min-width:0;}
- .track{height:5px;border-radius:1px}
- .fill{height:100%}
- .chart-wrap{overflow:visible}
- .volley-chart{width:100%;min-width:0;height:auto;max-height:39mm;display:block}
- #printHeader{display:block}
- .stats-two > div{min-width:0;}
-.stats-table{width:100%;table-layout:auto;}
-.stats-table th,
-.stats-table td{padding:1px;font-size:5.5pt;white-space:normal;overflow-wrap:anywhere;}
-.barrow,dist-head{grid-template-columns:10px minmax(0,1fr) 14px 30px 32px;gap:1px;font-size:5.2pt;}
+@page {
+  size: A4 landscape;
+  margin: 5mm;
+}
+
+@media print {
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 7pt;
+    line-height: 1.05;
+  }
+
+  header {
+    background: #fff;
+    color: #111;
+    padding: 0 0 2mm;
+    border-bottom: 1px solid #16324f;
+  }
+
+  header h1 {
+    font-size: 12pt;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  header p {
+    color: #333;
+    font-size: 6pt;
+    margin: 1mm 0 0;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) 32mm;
+    gap: 2mm;
+    width: 100%;
+    max-width: none;
+    height: 174mm;
+    min-height: 0;
+    margin: 0;
+    padding: 2mm 0 0;
+  }
+
+  main > section:nth-of-type(1) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  main > section:nth-of-type(2) {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  main > section:nth-of-type(3) {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  main > section:nth-of-type(4) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  main > section:nth-of-type(5),
+  .help,
+  .status,
+  footer,
+  .actions,
+  .no-print {
+    display: none !important;
+  }
+
+  .card {
+    min-width: 0;
+    margin: 0;
+    padding: 2mm;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    box-shadow: none;
+    break-inside: avoid;
+    overflow: hidden;
+  }
+
+  h2 {
+    font-size: 7pt;
+    margin: 0 0 1.5mm;
+  }
+
+  .meta {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1mm 2mm;
+  }
+
+  .field label {
+    font-size: 5.5pt;
+    margin: 0;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    height: 3.5mm;
+    min-height: 0;
+    padding: 0 1mm;
+    border: 0;
+    border-bottom: 1px solid #bbb;
+    border-radius: 0;
+    font-size: 6pt;
+  }
+
+  .field.wide {
+    grid-column: span 2;
+  }
+
+  .score-head {
+    gap: 2mm;
+  }
+
+  .progress {
+    font-size: 6pt;
+  }
+
+  .series {
+    margin-top: 1.5mm;
+  }
+
+  .series h2 {
+    font-size: 6.5pt;
+    margin: 1mm 0;
+  }
+
+  .table-wrap {
+    overflow: visible;
+    width: 100%;
+  }
+
+  #table1,
+  #table2 {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 0;
+  }
+
+  #table1 th,
+  #table1 td,
+  #table2 th,
+  #table2 td {
+    padding: 0.5mm 0.3mm;
+    font-size: 5.2pt;
+    line-height: 1;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Largeurs des huit colonnes : la somme reste compatible avec le tableau */
+  #table1 th:nth-child(1),
+  #table1 td:nth-child(1),
+  #table2 th:nth-child(1),
+  #table2 td:nth-child(1) { width: 7%; }
+
+  #table1 th:nth-child(2),
+  #table1 td:nth-child(2),
+  #table1 th:nth-child(3),
+  #table1 td:nth-child(3),
+  #table1 th:nth-child(4),
+  #table1 td:nth-child(4),
+  #table2 th:nth-child(2),
+  #table2 td:nth-child(2),
+  #table2 th:nth-child(3),
+  #table2 td:nth-child(3),
+  #table2 th:nth-child(4),
+  #table2 td:nth-child(4) { width: 11%; }
+
+  #table1 th:nth-child(5),
+  #table1 td:nth-child(5),
+  #table2 th:nth-child(5),
+  #table2 td:nth-child(5) { width: 10%; }
+
+  #table1 th:nth-child(6),
+  #table1 td:nth-child(6),
+  #table2 th:nth-child(6),
+  #table2 td:nth-child(6) { width: 10%; }
+
+  #table1 th:nth-child(7),
+  #table1 td:nth-child(7),
+  #table2 th:nth-child(7),
+  #table2 td:nth-child(7) { width: 19%; }
+
+  #table1 th:nth-child(8),
+  #table1 td:nth-child(8),
+  #table2 th:nth-child(8),
+  #table2 td:nth-child(8) { width: 19%; }
+
+  .score-select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 3.5mm;
+    min-height: 0;
+    padding: 0;
+    border: 1px solid #555 !important;
+    border-radius: 0;
+    font-size: 6pt;
+    font-weight: 800 !important;
+    text-align: center;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .score-select.ring-white {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .score-select.ring-black {
+    background: #000 !important;
+    color: #fff !important;
+  }
+
+  .score-select.ring-blue {
+    background: #0057b8 !important;
+    color: #fff !important;
+  }
+
+  .score-select.ring-red {
+    background: #c00000 !important;
+    color: #fff !important;
+  }
+
+  .score-select.ring-yellow {
+    background: #ffdf00 !important;
+    color: #111 !important;
+  }
+
+  .score-select.ring-miss {
+    background: #d9d9d9 !important;
+    color: #111 !important;
+    border: 1px solid #555 !important;
+  }
+
+  .score-select option {
+    display: none;
+  }
+
+  .row-total {
+    background: #f7f9fb;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1mm;
+  }
+
+  .metric {
+    min-width: 0;
+    padding: 1mm;
+    border-radius: 2px;
+  }
+
+  .metric .k,
+  .metric .sub {
+    font-size: 5pt;
+    line-height: 1;
+  }
+
+  .metric .v {
+    font-size: 8pt;
+    margin-top: 0.5mm;
+  }
+
+  .metric.small .v {
+    font-size: 7pt;
+  }
+
+  .stats-two {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 2mm;
+    margin-top: 2mm !important;
+  }
+
+  .stats-two > div {
+    min-width: 0;
+  }
+
+  .stats-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 0.7mm 0.3mm;
+    font-size: 5pt;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .zone-pill {
+    padding: 0.5mm 1mm;
+    border-radius: 2mm;
+  }
+
+  .distribution-note {
+    font-size: 4.5pt;
+    margin: 0.5mm 0 0;
+  }
+
+  .bars {
+    gap: 0.5mm;
+  }
+
+  .barrow,
+  .dist-head {
+    display: grid;
+    grid-template-columns: 5mm minmax(0, 1fr) 5mm 10mm 12mm;
+    gap: 0.5mm;
+    align-items: center;
+    font-size: 4.5pt;
+    line-height: 1;
+  }
+
+  .barrow > *,
+  .dist-head > * {
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .track {
+    height: 1.5mm;
+    border-radius: 0.5mm;
+  }
+
+  .fill {
+    height: 100%;
+  }
+
+  .chart-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .volley-chart {
+    display: block;
+    width: 100%;
+    height: 30mm;
+    min-width: 0;
+    max-height: 30mm;
+  }
+
+  #printHeader {
+    display: block;
+  }
 }
 
 </style>

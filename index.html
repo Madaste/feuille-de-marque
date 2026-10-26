@@ -78,7 +78,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
  header{background:#fff;color:#111;padding:0 0 3px;border-bottom:1px solid #16324f}
  header h1{font-size:14pt;line-height:1.1}
  header p{color:#333;font-size:7pt;margin:2px 0 0}
-  main{display:grid;grid-template-columns:56% 44%;grid-template-rows:auto minmax(0,1fr) 42mm;gap:3px;max-width:none;height:auto;min-height:180mm;padding:3px 0 0;margin:0;}
+  main{display:grid;grid-template-columns:minmax(0, 1.25fr) minmax(0, 1fr);grid-template-rows:auto minmax(0,1fr) 42mm;gap:3px;max-width:none;height:auto;min-height:180mm;padding:3px 0 0;margin:0;}
   /* Informations de séance : pleine largeur en haut */
   main>section:nth-of-type(1){grid-column:1/-1;grid-row:1;}
   /* Tableau des scores : colonne de gauche */
@@ -90,7 +90,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   /* Boutons : masqués dans le PDF */
   main>section:nth-of-type(5){display:none!important;}
  main>section:nth-of-type(5){display:none!important}
- .card{box-shadow:none;border:1px solid #aaa;border-radius:0;padding:4px;margin:0;break-inside:avoid;min-width:0;overflow:hidden}
+ .card{box-shadow:none;border:1px solid #aaa;border-radius:0;padding:4px;margin:0;break-inside:avoid;min-width:0;overflow:visible}
  h2{font-size:8pt;margin:0 0 3px}
  .meta{grid-template-columns:repeat(6,minmax(0,1fr));gap:2px 5px}
  .field label{font-size:6pt;margin:0}
@@ -142,6 +142,11 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
  .chart-wrap{overflow:visible}
  .volley-chart{width:100%;min-width:0;height:auto;max-height:39mm;display:block}
  #printHeader{display:block}
+ .stats-two > div{min-width:0;}
+.stats-table{width:100%;table-layout:auto;}
+.stats-table th,
+.stats-table td{padding:1px;font-size:5.5pt;white-space:normal;overflow-wrap:anywhere;}
+.barrow,dist-head{grid-template-columns:10px minmax(0,1fr) 14px 30px 32px;gap:1px;font-size:5.2pt;}
 }
 
 </style>

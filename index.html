@@ -186,8 +186,29 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   <div class="metric"><div class="k">Moyenne par flèche</div><div class="v" id="avgArrow">—</div><div class="sub">sur 10</div></div>
   <div class="metric"><div class="k">Moyenne par volée</div><div class="v" id="avgVolley">—</div><div class="sub">sur 30</div></div>
   <div class="metric"><div class="k">Flèches saisies</div><div class="v" id="filledCount">0 / 60</div><div class="sub" id="completeLabel">Séance en cours</div></div>
-  <div class="metric small"><div class="k">Volée minimale</div><div class="v" id="minVolley">—</div><div class="sub" id="minVolleyNo">Volée —</div></div>
-  <div class="metric small"><div class="k">Volée maximale</div><div class="v" id="maxVolley">—</div><div class="sub" id="maxVolleyNo">Volée —</div></div>
+ <div class="metric small">
+  <div class="k">Volée maximale — Série 1</div>
+  <div class="v" id="s1Best">—</div>
+  <div class="sub" id="s1BestNo">Volée —</div>
+</div>
+
+<div class="metric small">
+  <div class="k">Volée minimale — Série 1</div>
+  <div class="v" id="s1Worst">—</div>
+  <div class="sub" id="s1WorstNo">Volée —</div>
+</div>
+
+<div class="metric small">
+  <div class="k">Volée maximale — Série 2</div>
+  <div class="v" id="s2Best">—</div>
+  <div class="sub" id="s2BestNo">Volée —</div>
+</div>
+
+<div class="metric small">
+  <div class="k">Volée minimale — Série 2</div>
+  <div class="v" id="s2Worst">—</div>
+  <div class="sub" id="s2WorstNo">Volée —</div>
+</div>
 </div>
 <div class="stats-two" style="margin-top:14px">
   <div>
@@ -370,19 +391,48 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
     };
     distribution.innerHTML='<div class="dist-head"><span></span><span></span><span>Nb</span><span>%</span><span>% cumulé</span></div>'+scores.map(s=>{
       const pct=count?counts[s]/count*100:0;
-      return '<div class="barrow"><strong>'+s+'</strong><div class="track"><div class="fill" style="width:'+(counts[s]/max*100)+'%"></div></div><span>'+counts[s]+'</span><span>'+pctText(pct)+'</span><span>'+pctText(cumulativePct(s))+'</span></div>';
+      const barColors = {
+  "M": "#d9d9d9",
+  "1": "#ffffff",
+  "2": "#ffffff",
+  "3": "#000000",
+  "4": "#000000",
+  "5": "#0057b8",
+  "6": "#0057b8",
+  "7": "#c00000",
+  "8": "#c00000",
+  "9": "#ffdf00",
+  "10": "#ffdf00",
+  "X": "#ffdf00"
+};
+
+return '<div class="barrow"><strong>'+s+'</strong><div class="track"><div class="fill" style="width:'+(counts[s]/max*100)+'%;background-color:'+barColors[s]+';border:1px solid #777"></div></div><span>'+counts[s]+'</span><span>'+pctText(pct)+'</span><span>'+pctText(cumulativePct(s))+'</span></div>';
     }).join("");
-    const volleys=[...a.volleyTotals,...b.volleyTotals];
-    if(volleys.length){
-      const min=Math.min(...volleys.map(v=>v.score)), maxV=Math.max(...volleys.map(v=>v.score));
-      const minV=volleys.find(v=>v.score===min);
-	  const maxVolleyItem=volleys.find(v=>v.score===maxV);
-      set("minVolley",min);set("minVolleyNo","Série "+minV.series+" · volée "+minV.volley);
-      set("maxVolley",maxV);
-	  set("maxVolleyNo","Série "+maxVolleyItem.series+" · volée "+maxVolleyItem.volley);
-    } else {
-      set("minVolley","—");set("minVolleyNo","Aucune volée complète");
-      set("maxVolley","—");set("maxVolleyNo","Aucune volée complète");
+   function updateSeriesExtremes(volleyTotals, prefix) {
+  if (volleyTotals.length === 0) {
+    set(prefix + "Best", "—");
+    set(prefix + "BestNo", "Aucune volée complète");
+    set(prefix + "Worst", "—");
+    set(prefix + "WorstNo", "Aucune volée complète");
+    return;
+  }
+
+  const scores = volleyTotals.map(v => v.score);
+  const bestScore = Math.max(...scores);
+  const worstScore = Math.min(...scores);
+
+  const bestVolley = volleyTotals.find(v => v.score === bestScore);
+  const worstVolley = volleyTotals.find(v => v.score === worstScore);
+
+  set(prefix + "Best", bestScore);
+  set(prefix + "BestNo", "Volée " + bestVolley.volley);
+
+  set(prefix + "Worst", worstScore);
+  set(prefix + "WorstNo", "Volée " + worstVolley.volley);
+}
+
+updateSeriesExtremes(a.volleyTotals, "s1");
+updateSeriesExtremes(b.volleyTotals, "s2");
     }
     drawVolleyChart(a,b);
     document.getElementById("pdfBtn").disabled=count!==60;

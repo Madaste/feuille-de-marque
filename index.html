@@ -78,11 +78,17 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
  header{background:#fff;color:#111;padding:0 0 3px;border-bottom:1px solid #16324f}
  header h1{font-size:14pt;line-height:1.1}
  header p{color:#333;font-size:7pt;margin:2px 0 0}
- main{display:grid;grid-template-columns:56% 44%;grid-template-rows:auto minmax(0,1fr) 42mm;gap:3px;max-width:none;height:180mm;padding:3px 0 0;margin:0;}
- main>section:nth-of-type(1){grid-column:1/-1;grid-row:1}
- main>section:nth-of-type(2){grid-column:1;grid-row:2/4;min-height:0}
- main>section:nth-of-type(3){grid-column:2;grid-row:2;min-height:0;overflow:visible;}
- main>section:nth-of-type(4){grid-column:2;grid-row:3;min-height:0}
+  main{display:grid;grid-template-columns:56% 44%;grid-template-rows:auto minmax(0,1fr) 42mm;gap:3px;max-width:none;height:180mm;padding:3px 0 0;margin:0;}
+  /* Informations de séance : pleine largeur en haut */
+  main>section:nth-of-type(1){grid-column:1/-1;grid-row:1;}
+  /* Tableau des scores : colonne de gauche */
+  main>section:nth-of-type(2){grid-column:1;grid-row:2;min-height:0;}
+  /* Résultats et répartition : colonne de droite */
+  main>section:nth-of-type(3){grid-column:2;grid-row:2;min-height:0;overflow:visible;}
+  /* Graphique : sous les scores et les résultats, pleine largeur */
+  main>section:nth-of-type(4){grid-column:1/-1;grid-row:3;min-height:0;}
+  /* Boutons : masqués dans le PDF */
+  main>section:nth-of-type(5){display:none!important;}
  main>section:nth-of-type(5){display:none!important}
  .card{box-shadow:none;border:1px solid #aaa;border-radius:0;padding:4px;margin:0;break-inside:avoid;min-width:0;overflow:hidden}
  h2{font-size:8pt;margin:0 0 3px}

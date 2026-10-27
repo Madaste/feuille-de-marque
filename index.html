@@ -114,11 +114,11 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   main {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr) 22mm;
+    grid-template-rows: auto minmax(0, 1fr) 40mm;
     gap: 2mm;
     width: 100%;
     max-width: none;
-    height: 174mm;
+    height: 180mm;
     min-height: 0;
     margin: 0;
     padding: 2mm 0 0;
@@ -163,12 +163,19 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   .card {
     min-width: 0;
     margin: 0;
-    padding: 2mm;
+    padding: 1.2mm;
     border: 1px solid #aaa;
     border-radius: 0;
     box-shadow: none;
     break-inside: avoid;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  /* Laisser visibles la 10e volée et la ligne de total de la série 2 */
+  main > section:nth-of-type(2) {
+    overflow: visible;
+    height: auto;
+    align-self: start;
   }
 
   h2 {
@@ -212,12 +219,12 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   }
 
   .series {
-    margin-top: 1.5mm;
+    margin-top: 0.5mm;
   }
 
   .series h2 {
-    font-size: 6.5pt;
-    margin: 1mm 0;
+    font-size: 5.8pt;
+    margin: 0.5mm 0;
   }
 
   .table-wrap {
@@ -238,8 +245,8 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   #table1 td,
   #table2 th,
   #table2 td {
-    padding: 0.3mm 0.25mm;
-    font-size: 4.9pt;
+    padding: 0.1mm 0.25mm;
+    font-size: 4.8pt;
     line-height: 1;
     overflow: hidden;
     text-align: center;
@@ -289,12 +296,12 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
     display: block;
     width: 100%;
     min-width: 0;
-    height: 3mm;
+    height: 2.6mm;
     min-height: 0;
     padding: 0;
     border: 1px solid #555 !important;
     border-radius: 0;
-    font-size: 6pt;
+    font-size: 4.8pt;
     font-weight: 800 !important;
     text-align: center;
     appearance: none;
@@ -338,6 +345,14 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
 
   .row-total {
     background: #f7f9fb;
+    font-size: 4.8pt;
+    line-height: 1;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  #table1 tfoot, #table2 tfoot {
+    display: table-footer-group;
   }
 
   .summary-grid {
@@ -437,9 +452,9 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   .volley-chart {
     display: block;
     width: 100%;
-    height: 19mm;
+    height: 40mm;
     min-width: 0;
-    max-height: 19mm;
+    max-height: 40mm;
   }
 
   #printHeader {
@@ -543,7 +558,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
 <section class="card">
 <h2>Scores par volée</h2>
 <p class="help">Évolution du total de chaque volée, sur 30 points.</p>
-<div class="chart-wrap"><svg id="volleyChart" class="volley-chart" viewBox="0 0 720 250" role="img" aria-label="Graphique des scores par volée"></svg></div>
+<div class="chart-wrap"><svg id="volleyChart" class="volley-chart" viewBox="0 0 720 250" preserveAspectRatio="none" role="img" aria-label="Graphique des scores par volée"></svg></div>
 </section>
 
 <section class="card">

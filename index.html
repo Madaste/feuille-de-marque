@@ -460,6 +460,19 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   #printHeader {
     display: block;
   }
+
+  /* Ajustements réservés à l'impression sur ordinateur (pointeur avec survol). */
+  @media (hover: hover) {
+    main {
+      grid-template-rows: auto auto 50mm;
+      height: auto;
+    }
+
+    .volley-chart {
+      height: 50mm;
+      max-height: 50mm;
+    }
+  }
 }
 
 </style>

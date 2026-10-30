@@ -114,7 +114,7 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   main {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr) 40mm;
+    grid-template-rows: auto minmax(0, 1fr) 55mm;
     gap: 2mm;
     width: 100%;
     max-width: none;
@@ -445,8 +445,8 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
 
   .chart-wrap {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: 40mm;
+    overflow: visible;
   }
 
   .volley-chart {
@@ -464,13 +464,14 @@ footer{font-size:.82rem;color:var(--muted);text-align:center;padding:4px 0 18px}
   /* Ajustements réservés à l'impression sur ordinateur (pointeur avec survol). */
   @media (hover: hover) {
     main {
-      grid-template-rows: auto auto 50mm;
-      height: auto;
+      grid-template-rows: auto minmax(0, 1fr) 58mm;
+      height: 180mm;
     }
 
+    .chart-wrap,
     .volley-chart {
-      height: 50mm;
-      max-height: 50mm;
+      height: 43mm;
+      max-height: 43mm;
     }
   }
 }
